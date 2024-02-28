@@ -225,7 +225,7 @@ public class SunmiCloudPrinterPlugin implements FlutterPlugin, MethodCallHandler
 
             case "PRINT_IMAGE":
                 byte[] bytes = call.argument("bitmap");
-                int mode = call.argument("mode");
+                int mode = 0;
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 try {
                     sunmiCloudPrinterMethod.printBitmap(bitmap, mode);
