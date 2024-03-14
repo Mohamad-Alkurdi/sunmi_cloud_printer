@@ -141,6 +141,17 @@ public class SunmiCloudPrinterPlugin implements FlutterPlugin, MethodCallHandler
                 result.success(true);
                 break;
 
+            case "CUT_PAPER":
+                try {
+                    sunmiCloudPrinterMethod.cutPaper(0, 0);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    result.success(false);
+                    break;
+                }
+                result.success(true);
+                break;
+
             case "LINE_WRAP":
                 //noinspection ConstantConditions
                 int nLine = call.argument("lines");
