@@ -30,8 +30,8 @@ class SunmiCloudPrinter {
     await _channel.invokeMethod('SET_NET_PRINTER', arguments);
   }
 
-  static Future<void> connect() async {
-    await _channel.invokeMethod('CONNECT');
+  static Future<bool> connect() async {
+    return await _channel.invokeMethod('CONNECT');
   }
 
   static Future<void> disconnect() async {

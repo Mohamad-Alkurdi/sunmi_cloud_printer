@@ -2,8 +2,14 @@ package com.example.sunmi_cloud_printer;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+
+import com.sunmi.externalprinterlibrary.api.ConnectCallback;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -56,12 +62,34 @@ public class SunmiCloudPrinterPlugin implements FlutterPlugin, MethodCallHandler
 
             case "CONNECT":
                 try {
-                    sunmiCloudPrinterMethod.connect();
+                    sunmiCloudPrinterMethod.connect(new ConnectCallback() {
+                        @Override
+                        public void onFound() {
+                            System.out.println("onFound [...]");
+                        }
+
+                        @Override
+                        public void onUnfound() {
+                            System.out.println("onUnfound");
+                            result.success(false);
+                        }
+
+                        @Override
+                        public void onConnect() {
+                            System.out.println("onConnect");
+                            result.success(true);
+                        }
+
+                        @Override
+                        public void onDisconnect() {
+                            System.out.println("onDisconnect");
+                        }
+
+                    });
                 } catch (Exception ignored) {
                     result.success(false);
                     break;
                 }
-                result.success(true);
                 break;
 
             case "DISCONNECT":

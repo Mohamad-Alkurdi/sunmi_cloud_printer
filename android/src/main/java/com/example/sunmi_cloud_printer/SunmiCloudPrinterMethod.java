@@ -76,65 +76,10 @@ public class SunmiCloudPrinterMethod {
      *
      * @throws PrinterException the printer exception
      */
-    public void connect() throws PrinterException {
-        System.out.println("Connection...");
+    public void connect(ConnectCallback callback) throws PrinterException {
         if (!SunmiPrinterApi.getInstance().isConnected()) {
             TaskProvider.runFunctionWithException(
-                    () -> SunmiPrinterApi.getInstance().connectPrinter(_context, new ConnectCallback() {
-                        @Override
-                        public void onFound() {
-                            System.out.println("onFound");
-                            Looper.prepare();
-                            Toast.makeText(
-                                    _context,
-                                    "Sunmi Printer Found",
-                                    Toast.LENGTH_LONG
-                            ).show();
-                            Looper.loop();
-                            Looper.myLooper().quitSafely();
-
-                        }
-
-                        @Override
-                        public void onUnfound() {
-                            System.out.println("onUnfound");
-                            Looper.prepare();
-                            Toast.makeText(
-                                    _context,
-                                    "Sunmi Printer Unfound",
-                                    Toast.LENGTH_LONG
-                            ).show();
-                            Looper.loop();
-                            Looper.myLooper().quitSafely();
-                        }
-
-                        @Override
-                        public void onConnect() {
-                            System.out.println("onConnect");
-                            Looper.prepare();
-                            Toast.makeText(
-                                    _context,
-                                    "Sunmi Printer Connected",
-                                    Toast.LENGTH_LONG
-                            ).show();
-                            Looper.loop();
-                            Looper.myLooper().quitSafely();
-                        }
-
-                        @Override
-                        public void onDisconnect() {
-                            System.out.println("onDisconnect");
-                            Looper.prepare();
-                            Toast.makeText(
-                                    _context,
-                                    "Sunmi Printer Disconnected",
-                                    Toast.LENGTH_LONG
-                            ).show();
-                            Looper.loop();
-                            Looper.myLooper().quitSafely();
-                        }
-
-                    })
+                    () -> SunmiPrinterApi.getInstance().connectPrinter(_context, callback)
             );
         } else {
             System.out.println("Already connected");
@@ -147,13 +92,10 @@ public class SunmiCloudPrinterMethod {
     }
 
     public void disconnect() throws PrinterException {
-        System.out.println("Disconnecting...");
-        if (!SunmiPrinterApi.getInstance().isConnected()) {
+        if (SunmiPrinterApi.getInstance().isConnected()) {
             TaskProvider.runFunctionWithException(
                     () -> SunmiPrinterApi.getInstance().disconnectPrinter(_context)
             );
-        } else {
-            System.out.println("Printer is not connected");
         }
     }
 
