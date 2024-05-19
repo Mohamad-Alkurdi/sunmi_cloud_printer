@@ -34,6 +34,10 @@ class SunmiCloudPrinter {
     await _channel.invokeMethod('CONNECT');
   }
 
+  static Future<void> disconnect() async {
+    await _channel.invokeMethod('DISCONNECT');
+  }
+
   static Future<bool?> initPrinter() async {
     final bool? status = await _channel.invokeMethod('INIT_PRINTER');
     return status;
