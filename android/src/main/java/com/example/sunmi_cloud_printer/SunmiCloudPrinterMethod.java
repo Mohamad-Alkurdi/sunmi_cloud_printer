@@ -146,6 +146,17 @@ public class SunmiCloudPrinterMethod {
         }
     }
 
+    public void disconnect() throws PrinterException {
+        System.out.println("Disconnecting...");
+        if (!SunmiPrinterApi.getInstance().isConnected()) {
+            TaskProvider.runFunctionWithException(
+                    () -> SunmiPrinterApi.getInstance().disconnectPrinter(_context)
+            );
+        } else {
+            System.out.println("Printer is not connected");
+        }
+    }
+
     /**
      * Printer initialized.
      *
