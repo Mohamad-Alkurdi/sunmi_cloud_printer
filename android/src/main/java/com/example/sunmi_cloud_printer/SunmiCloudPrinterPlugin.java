@@ -53,11 +53,10 @@ public class SunmiCloudPrinterPlugin implements FlutterPlugin, MethodCallHandler
                 String ip = call.argument("ip");
                 try {
                     sunmiCloudPrinterMethod.setNetPrinter(ip);
+                    result.success(true);
                 } catch (Exception ignored) {
                     result.success(false);
-                    break;
                 }
-                result.success(true);
                 break;
 
             case "CONNECT":
@@ -88,18 +87,16 @@ public class SunmiCloudPrinterPlugin implements FlutterPlugin, MethodCallHandler
                     });
                 } catch (Exception ignored) {
                     result.success(false);
-                    break;
                 }
                 break;
 
             case "DISCONNECT":
                 try {
                     sunmiCloudPrinterMethod.disconnect();
+                    result.success(true);
                 } catch (Exception ignored) {
                     result.success(false);
-                    break;
                 }
-                result.success(true);
                 break;
 
             case "INIT_PRINTER":
