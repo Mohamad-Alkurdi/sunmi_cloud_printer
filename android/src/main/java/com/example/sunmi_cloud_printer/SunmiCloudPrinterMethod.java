@@ -317,7 +317,6 @@ public class SunmiCloudPrinterMethod {
      * @throws PrinterException the printer exception
      */
     public boolean isConnected() throws PrinterException {
-
         return TaskProvider.runFunctionWithException(
                 () -> SunmiPrinterApi.getInstance().isConnected()
         ).orElse(false);
